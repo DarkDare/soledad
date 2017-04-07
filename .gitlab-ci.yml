@@ -62,3 +62,5 @@ benchmark:
     # to an elasticsearch instance
     - echo "addopts=$PYTEST_OPTS" >> pytest.ini && chmod 600 pytest.ini
     - tox --recreate -e benchmark -- --couch-url http://couchdb:5984
+    # Output locally saved benchmarks if they exist
+    - '[ -d .benchmarks ] && find .benchmarks -type f -exec cat {} \;'
