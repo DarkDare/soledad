@@ -48,7 +48,7 @@ benchmark:
   script:
     # We need some files on order to post the right benchmarking data to elasticsearch
     - git checkout origin/master testing/tox.ini testing/tests/benchmarks/conftest.py testing/tests/conftest.py
-    - sed -i 's/drebs\/pytest-benchmark.git@use-netrc-file/varac\/pytest-benchmark.git@unmerged_prs/' testing/tox.ini
+    - sed -i 's/drebs.*$/varac\/pytest-benchmark.git@unmerged_prs/' testing/tox.ini
     - grep -A 9 'testenv:benchmark' testing/tox.ini
     - git status
     - cd testing
@@ -64,4 +64,4 @@ benchmark:
     - echo "addopts=$PYTEST_OPTS" >> pytest.ini && chmod 600 pytest.ini
     - tox --recreate -e benchmark -- --couch-url http://couchdb:5984
     # Output locally saved benchmarks if they exist
-    - '[ -d .benchmarks ] && find .benchmarks -type f -exec cat {} \;'
+    - 'if [ -d .benchmarks ]; then find .benchmarks -type f -exec cat {} \; ; fi'
